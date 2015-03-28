@@ -50,6 +50,8 @@ Camus
 Tasks
 ```
 - Setup Kafka
+- Perform in and out
+- Java API for producer
 ```
 
 
