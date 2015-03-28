@@ -47,7 +47,10 @@ Mirroring
 Camus
 ```
 
-
+Tasks
+```
+- Setup Kafka
+```
 
 
 
