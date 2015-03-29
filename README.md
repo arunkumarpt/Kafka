@@ -134,7 +134,7 @@ public class TestProducer {
 }
 ```
 
-Output in the consumer
+Output seen using consumer
 
 ```
 arun:kafka arun$ bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic page_visits --from-beginning
