@@ -63,5 +63,35 @@ Tasks
 ```
 
 
+#Useful Commands
 
+Start Zookeeper
 
+```
+arun:kafka arun$ bin/zookeeper-server-start.sh config/zookeeper.properties
+
+```
+
+Start Kafka Server 1
+
+```
+bin/kafka-server-start.sh config/server.properties
+```
+
+Start Kafka Server 2
+
+```
+bin/kafka-server-start.sh config/server-1.properties
+```
+
+Start Kafka Server 3
+
+```
+bin/kafka-server-start.sh config/server-2.properties
+```
+
+Create a topic and send message using producer
+
+```
+bin/kafka-console-producer.sh --zookeeper localhost:2181 --topic test
+```
