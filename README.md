@@ -95,3 +95,53 @@ Create a topic and send message using producer
 ```
 bin/kafka-console-producer.sh --zookeeper localhost:2181 --topic test
 ```
+
+Java Program for sample producer
+
+```
+package hadoop.kafka;
+
+import java.util.*;
+
+import kafka.javaapi.producer.Producer;
+import kafka.producer.KeyedMessage;
+import kafka.producer.ProducerConfig;
+ 
+public class TestProducer {
+    public static void main(String[] args) {
+        long events = Long.parseLong(args[0]);
+        Random rnd = new Random();
+ 
+        Properties props = new Properties();
+        props.put("metadata.broker.list", "localhost:9092,localhost:9093");
+        props.put("serializer.class", "kafka.serializer.StringEncoder");
+        props.put("partitioner.class", "hadoop.kafka.SimplePartitioner");
+        props.put("request.required.acks", "1");
+ 
+        ProducerConfig config = new ProducerConfig(props);
+ 
+        Producer<String, String> producer = new Producer<String, String>(config);
+ 
+        for (long nEvents = 0; nEvents < events; nEvents++) { 
+               long runtime = new Date().getTime();  
+               String ip = "192.168.2." + rnd.nextInt(255); 
+               String msg = runtime + ",www.arun.com," + ip; 
+               KeyedMessage<String, String> data = new KeyedMessage<String, String>("page_visits", ip, msg);
+               producer.send(data);
+        }
+        producer.close();
+    }
+}
+```
+
+Output in the consumer
+
+```
+arun:kafka arun$ bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic page_visits --from-beginning
+1427661888490,www.arun.com,192.168.2.197
+1427661889100,www.arun.com,192.168.2.34
+1427661889108,www.arun.com,192.168.2.16
+1427661889113,www.arun.com,192.168.2.196
+1427661889118,www.arun.com,192.168.2.131
+1427662002244,www.arun.com,192.168.2.31
+```
